@@ -37,6 +37,16 @@ input[type=number]::-webkit-inner-spin-button {
     background-color: #eaf1f8!important;
 } */
 
+/* START added by rcar94 */
+/* Targeting the checkbox input */
+.form-check-input {
+    display: inline-block !important;
+    margin-left: -15px !important;
+    margin-right: 8px !important;
+}
+
+/* END added by rcar94 */
+
 #isMezzogiorno {
     display: inline-block;
     background-color: #deebf7;

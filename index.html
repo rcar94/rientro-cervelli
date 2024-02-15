@@ -47,6 +47,7 @@
 <div class='container'>
     <div id="header">
         <h1>Calcolatore Tasse Rientro dei Cervelli</h1>
+        <h2 style="font-style: italic; padding-bottom: 10px;">Dati aggiornati 2024, solo impratriati regime precedente</h2>
         <h2>Scopri qual è il tuo stipendio netto</h2>
     </div>
     <div id="form">
@@ -66,7 +67,12 @@
                 <select class="form-select" id="comune">
                 </select>
             </div>
-
+<!-- START added by rcar94-->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rinnovoSecondoQuinquennio">
+                <label class="form-check-label" for="rinnovoSecondoQuinquennio">Rinnovo secondo quinquennio</label>
+            </div>
+<!-- END added by rcar94-->
 
         <div class="input-group" id="warningComune" style="display:none; text-align:right;max-width: 685px;">
             <input type="number" placeholder="0.9" min="0" max="1" step="0.001" id="customComune"
@@ -85,9 +91,22 @@
 
 <div id="body">
     <div class="container">
-        <p style="color:#191970;opacity: 0.9;">Stipendio netto per i primi 5 anni. <a
+        <!-- START rcar94 edit 
+        <p id="nettoPrimiCinqueAnniText" style="color:#191970;opacity: 0.9;">Stipendio netto per i primi 5 anni. <a
                 href="https://www.agenziaentrate.gov.it/portale/web/guest/normativa-e-prassi2-cittadini">Leggi il
             Decreto</a></p>
+        -->
+        <div id="nettoPrimiCinqueAnniText" style="display: block;">
+            <p>Stipendio netto per i primi 5 anni. <a href="https://www.agenziaentrate.gov.it/portale/web/guest/normativa-e-prassi2-cittadini">Leggi il Decreto</a></p>
+        </div>
+        <div id="nettoSecondiCinqueAnniText" style="display: none;">
+            <p>Stipendio netto per i secondi 5 anni. </p>
+        </div>
+        
+        <!-- END -->
+
+
+
 
         <table class="table nettoMesi mobile-hide"
                style="background-color:#deebf7; font-size: 13px; border-color:transparent;"
@@ -250,7 +269,7 @@
                     <div id="isMezzogiorno">-<span id="percentualeImponibile">90%</span>
                         <button id="imponibileInfo" type="button" class="btn"
                                 data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Abbattimento dell’imponibile del 90% per i residenti nel mezzogiorno, abbattimento del 70% per gli altri rimpatriati.">
+                                title="Abbattimento dell’imponibile del 90% per i residenti nel mezzogiorno, abbattimento del 70% per gli altri rimpatriati. Nel secondo quinquennio abbattimento del 50%">
                             <i class="fa fa-info-circle"></i>
                         </button>
                     </div>
@@ -311,7 +330,7 @@
                 <td>Standard</td>
                 <td>Agevolato</td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td>0 €</td>
                 <td>15K €</td>
                 <td>23%</td>
@@ -325,6 +344,15 @@
                 <td><span id="irpefS1">-</span> €</td>
                 <td><span id="irpefC1">-</span> €</td>
             </tr>
+        
+            <tr>
+                <td>0 €</td>
+                <td>28K €</td>
+                <td>23%</td>
+                <td><span id="irpefS0">-</span> €</td>
+                <td><span id="irpefC0">-</span> €</td>
+            </tr>
+
             <tr>
                 <td>28K €</td>
                 <td>50K €</td>
@@ -339,11 +367,37 @@
                 <td><span id="irpefS3">-</span> €</td>
                 <td><span id="irpefC3">-</span> €</td>
             </tr>
+            
+            -->
+<!-- START rcar94 edit -->
+            <tr>
+                <td>0 €</td>
+                <td>28K €</td>
+                <td>23%</td>
+                <td><span id="irpefS0">-</span> €</td>
+                <td><span id="irpefC0">-</span> €</td>
+            </tr>
+            <tr>
+                <td>28K €</td>
+                <td>50K €</td>
+                <td>35%</td>
+                <td><span id="irpefS1">-</span> €</td>
+                <td><span id="irpefC1">-</span> €</td>
+            </tr>
+            <tr>
+                <td>50K €</td>
+                <td></td>
+                <td>43%</td>
+                <td><span id="irpefS2">-</span> €</td>
+                <td><span id="irpefC2">-</span> €</td>
+            </tr>   
             <tr>
                 <th colspan="3">Totale</th>
                 <th><span id="TotIrpefS">-</span> €</th>
                 <th><span id="TotIrpefC">-</span> €</th>
-            </tr>
+            </tr>    
+
+<!-- END rcar94 edit -->
             </tbody>
         </table>
 

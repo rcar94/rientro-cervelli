@@ -77,9 +77,24 @@ function fillTableTaxes(ral) {
 
     $('#imponibileIrpefS').text(Math.round(imponibileIrpefS/mensilita));
     $('#imponibileIrpefC').text(Math.round(imponibileIrpefC/mensilita));
-    const percentualeImponibile = regioneToRegola[regione] === 0.1 ? "90%" : "70%";
+    // START rcar94 edit 
+    // const percentualeImponibile = regioneToRegola[regione] === 0.1 ? "90%" : "70%";
+    // $('#percentualeImponibile').text(percentualeImponibile);
+    // Check if the "Rinnovo secondo quinquennio" checkbox is checked
+    const isRinnovoChecked = document.getElementById('rinnovoSecondoQuinquennio').checked;
+
+    let percentualeImponibile;
+    if (isRinnovoChecked) {
+        percentualeImponibile = "50%"; // Apply a 50% deduction if the checkbox is checked
+    } else {
+        // Use the existing logic to determine deduction based on region
+        percentualeImponibile = regioneToRegola[regione] === 0.1 ? "90%" : "70%";
+    }
     $('#percentualeImponibile').text(percentualeImponibile);
 
+    
+    // END rcar94 edits    
+    
     const standardIrpef = calcolaIrpef(imponibileIrpefS);
     const rientroIrpef = calcolaIrpef(imponibileIrpefC);
     $('#taxIrpefS').text(Math.round(standardIrpef/mensilita));
@@ -209,7 +224,15 @@ $(function () {
     $("#customComune").on("input", function(){
         $('#submit-salary').submit();          
     });
+    // START rcar94 edit
+    document.getElementById('rinnovoSecondoQuinquennio').addEventListener('change', function() {
+        $('#submit-salary').submit(); // Trigger form submission, leading to recalculation
+    });
+    
+    // END
+
 });
 
 $(document).ready(() => $('#submit-salary').submit());
+
 

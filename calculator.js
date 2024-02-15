@@ -722,8 +722,8 @@ const comuniToScaglioniIrpef = {
 }
 
 const soglieIrpefToPercentualeMarginale = {
-    15_000: 0.23,
-    28_000: 0.25,
+    //15_000: 0.23,
+    28_000: 0.23,
     50_000: 0.35,
     1_000_000_000: 0.43,
 }
@@ -738,6 +738,7 @@ const RegolaImponibile = {
     STANDARD: 1,
     NORD: 0.3,
     MEZZOGIORNO: 0.1,
+    SECONDOQUINQUENNIO: 0.5,
 }
 
 const regioneToRegola = {
@@ -773,12 +774,44 @@ function calcolaNetto(ral, regione, comune, hasAgevolazione, comuneDef) {
 }
 
 // TODO: - inps calculated 2 times
+
+// START rcar94 edit
+//function baseImponibile(lordo, regione, hasAgevolazione) {
+//    const inps = calcolaInps(lordo);
+//    const imponibileStandard = lordo - inps;
+//    const regola = (hasAgevolazione) ? regioneToRegola[regione] : RegolaImponibile.STANDARD;
+//    return _calcolaBaseImponibile(imponibileStandard, regola);
+//}
+
+//function baseImponibile(lordo, regione, hasAgevolazione) {
+//    const inps = calcolaInps(lordo);
+//    const imponibileStandard = lordo - inps;
+//    const isSecondoQuinquennio = document.getElementById('rinnovoSecondoQuinquennio').checked;
+//    const regola = isSecondoQuinquennio ? RegolaImponibile.SECONDOQUINQUENNIO :
+//                  (hasAgevolazione ? regioneToRegola[regione] : RegolaImponibile.STANDARD);
+//    return _calcolaBaseImponibile(imponibileStandard, regola);
+//}
+
 function baseImponibile(lordo, regione, hasAgevolazione) {
     const inps = calcolaInps(lordo);
     const imponibileStandard = lordo - inps;
-    const regola = (hasAgevolazione) ? regioneToRegola[regione] : RegolaImponibile.STANDARD;
+    let regola = RegolaImponibile.STANDARD; // Default rule
+
+    if (hasAgevolazione) {
+        const isSecondoQuinquennio = document.getElementById('rinnovoSecondoQuinquennio').checked;
+        if (isSecondoQuinquennio) {
+            regola = RegolaImponibile.SECONDOQUINQUENNIO; // Apply 50% deduction
+        } else {
+            regola = regioneToRegola[regione]; // Apply region-specific deduction
+        }
+    }
+
     return _calcolaBaseImponibile(imponibileStandard, regola);
 }
+
+
+// END rcar94 edit
+
 
 function _calcolaBaseImponibile(imponibileStandard, regolaImponibile) {
     return imponibileStandard * regolaImponibile;
@@ -837,3 +870,20 @@ function calcolaTassa(lordo, soglieToPercentualeMarginale) {
     }
     return tasseTotale;
 }
+
+// START rcar94 edit
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('rinnovoSecondoQuinquennio').addEventListener('change', function() {
+        if(this.checked) {
+            document.getElementById('nettoPrimiCinqueAnniText').style.display = 'none';
+            document.getElementById('nettoSecondiCinqueAnniText').style.display = 'block';
+        } else {
+            document.getElementById('nettoPrimiCinqueAnniText').style.display = 'block';
+            document.getElementById('nettoSecondiCinqueAnniText').style.display = 'none';
+        }
+    });
+});
+
+
+
