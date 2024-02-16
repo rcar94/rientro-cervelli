@@ -1,5 +1,5 @@
 
-# Italian Expat Tax Calculator (2019 > 2023)
+# Italian expat tax calculator (back from 2019 to 2023)
 ## website available through GH pages at [rcar94.github.io/rientro-cervelli](https://rcar94.github.io/rientro-cervelli/). 
 
 
@@ -12,7 +12,7 @@ This helps you estimate your income tax (IRPEF) as an Italian expat returning ho
 .
 .
 
-## Calcolatore Tasse per Espatriati Italiani (2019 > 2023)
+## Calcolatore tasse per impatriati italiani (rientrati dal 2019 al 2023)
 
 Questo strumento ti aiuta a stimare la tua imposta sul reddito (IRPEF) come ex-pat al tuo ritorno. Puoi controllare la tua potenziale tassazione, sia con che senza le agevolazioni fiscali previste dalla normativa del 30 aprile 2019.
 
